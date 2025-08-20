@@ -1,0 +1,6 @@
+<%= form_with(model: @post) do |form| %>
+  <%= form.hidden_field :commentable_type, value: "Post" %>
+  <%= form.hidden_field :commentable_id, value: @post.id %>
+  <%= form.text_area :body %>
+  <%= form.submit "コメントする" %>
+<% end %>
