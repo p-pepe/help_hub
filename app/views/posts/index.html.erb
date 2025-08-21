@@ -1,5 +1,8 @@
-テストテスト
+<%= link_to "新規投稿", new_post_path %>
+
 
 <% @posts.each do |post| %>
   <% post.title %>
 <% end %>
+
+<%= link_to "ホームに戻る", root_path %>

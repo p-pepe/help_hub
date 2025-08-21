@@ -1,3 +1,12 @@
 <h1>Welcome to HelpHub</h1>
 <p>ここは、あなたの技術的な「助けて」を投稿・共有する場所です。</p>
 <%= link_to "投稿一覧を見る", posts_path %>
+<%= link_to "タグ一覧を見る", tags_path %>
+
+<% unless current_user %>
+  <%= link_to "ログイン", new_user_session_path %>
+<% end %>
+
+<div data-controller="hello">
+  ここがStimulusによって自動で置き換わる場所
+</div>
