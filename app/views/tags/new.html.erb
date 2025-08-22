@@ -2,7 +2,9 @@
 
 <h1>New tag</h1>
 
-<%= render "form", tag: @tag %>
+<%= turbo_frame_tag @tag do %>
+  <%= render "form", tag: @tag %>
+<% end %>
 
 <br>
 

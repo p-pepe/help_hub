@@ -6,13 +6,14 @@
 
 <div id="tags">
   <% @tags.each do |tag| %>
-    <%= render tag %>
-    <p>
-      <%= link_to "Show this tag", tag %>
-    </p>
+    <%= turbo_frame_tag tag do %>
+      <%= render partial: "content", locals: { tag: tag } %>
+    <% end %>
   <% end %>
 </div>
 
-<%= link_to "New tag", new_tag_path %>
+<%= turbo_frame_tag "new_tag" do %>
+  <%= link_to "New Tag", new_tag_path %>
+<% end %>
 
 <%= link_to "ホームに戻る", root_path %>

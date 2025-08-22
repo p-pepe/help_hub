@@ -1,0 +1,9 @@
+<%= turbo_stream.append 'tags' do %>
+  <%= turbo_frame_tag @tag do %>
+    <%= render partial: "content", locals: { tag: @tag } %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.update 'new_tag' do %>
+  <%= link_to "New tag", new_tag_path %>
+<% end %>

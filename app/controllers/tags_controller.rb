@@ -25,8 +25,12 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to @tag, notice: "Tag was successfully created." }
-        format.json { render :show, status: :created, location: @tag }
+        # format.html { redirect_to @tag, notice: "Tag was successfully created." }
+        # format.json { render :show, status: :created, location: @tag }
+
+        format.turbo_stream
+        format.html { redirect_to tags_path, notice: 'Tag was successfully created.' }
+
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
@@ -38,8 +42,13 @@ class TagsController < ApplicationController
   def update
     respond_to do |format|
       if @tag.update(tag_params)
-        format.html { redirect_to @tag, notice: "Tag was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @tag }
+
+        format.turbo_stream
+        format.html { redirect_to tags_path, notice: 'Tag was successfully updated.' }
+
+        # format.html { redirect_to @tag, notice: "Tag was successfully updated.", status: :see_other }
+        # format.json { render :show, status: :ok, location: @tag }
+
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
@@ -54,6 +63,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tags_path, notice: "Tag was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@tag) }
     end
   end
 
