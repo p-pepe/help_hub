@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  get "users/show"
   resources :tags
   get "homes/index"
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -15,7 +18,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  mount ActiveStorage::Engine => "/rails/active_storage"
+
   root to: "homes#index"
+  get '/mypage', to: 'users#show'
 
   resources :posts do
     resources :comments, only: [:create, :destroy] # ネストしてもOK

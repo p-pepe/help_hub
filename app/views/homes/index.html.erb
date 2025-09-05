@@ -1,10 +1,27 @@
 <h1>Welcome to HelpHub</h1>
 <p>ここは、あなたの技術的な「助けて」を投稿・共有する場所です。</p>
-<%= link_to "投稿一覧を見る", posts_path %>
-<%= link_to "タグ一覧を見る", tags_path %>
+<p>
+  <%= link_to "投稿一覧を見る", posts_path %>
+</p>
+
+<p>
+  <%= link_to "タグ一覧を見る", tags_path %>
+</p>
+
+<p>
+  <%= link_to "マイページ", mypage_path %>
+</p>
+
+<% if current_user.present? %>
+  <p>ログイン中</p>
+<% else %>
+  <p>ログアウト中</p>
+<% end %>
 
 <% unless current_user %>
   <%= link_to "ログイン", new_user_session_path %>
+<% else %>
+  <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
 <% end %>
 
 <div data-controller="hello">
