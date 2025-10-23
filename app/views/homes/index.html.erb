@@ -21,7 +21,8 @@
 <% unless current_user %>
   <%= link_to "ログイン", new_user_session_path %>
 <% else %>
-  <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <%= link_to "ログアウト", destroy_user_session_path, class: "nav-item",
+    data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" } %>
 <% end %>
 
 <div data-controller="hello">

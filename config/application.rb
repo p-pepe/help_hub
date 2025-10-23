@@ -24,5 +24,8 @@ module HelpHub
     config.time_zone = "Tokyo"
     config.i18n.default_locale = :ja
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.assets.resolve_with = [:propshaft]
+    config.assets.css_compressor = nil
   end
 end

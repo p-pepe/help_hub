@@ -50,3 +50,5 @@ npm-debug.log
 
 # テスト関連
 /coverage
+/app/assets/builds/*
+!/app/assets/builds/.keep

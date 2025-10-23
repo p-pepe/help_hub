@@ -1,0 +1,18 @@
+<header class="header">
+  <%= link_to "Helphub", root_path, class: "logo" %>
+
+  <div class="nav">
+    <% if user_signed_in? %>
+      <%= link_to "マイページ", mypage_path, class: "nav-item" %>
+      <%= link_to "ログアウト", destroy_user_session_path, class: "nav-item",
+          data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" } %>
+      
+    <% else %>
+      <%= link_to "ログイン", new_user_session_path, class: "nav-item" %>
+      <%= link_to "新規登録", new_user_registration_path, class: "nav-item" %>
+    <% end %>
+    <%= link_to "投稿一覧を見る", posts_path, class: "nav-item" %>
+    <%= link_to "タグ一覧を見る", tags_path, class: "nav-item" %>
+    <% Rails.logger.debug "Protocol: #{request.protocol}" %>
+  </div>
+</header>
