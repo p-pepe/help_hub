@@ -14,12 +14,15 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-
-    if @post.save
-      redirect_to @post, notice: "投稿が作成されました。"
-    else
-      render :new, status: :unprocessable_entity
+    @post = current_user.posts.build(post_params)
+    respond_to do |format|
+      if @post.save
+        format.turbo_stream
+        format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -27,16 +30,24 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
-      redirect_to @post, notice: "投稿が更新されました。"
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @post.update(post_params)
+        format.turbo_stream
+        format.html { redirect_to posts_path, notice: '投稿が更新されました。' }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: "投稿が削除されました。"
+    respond_to do |format|
+      format.html { redirect_to posts_path, notice: "投稿が削除されました。", status: :see_other }
+      format.json { head :no_content }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@post) }
+    end
   end
 
   private

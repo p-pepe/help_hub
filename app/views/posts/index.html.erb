@@ -1,8 +1,19 @@
-<%= link_to "新規投稿", new_post_path %>
+<p style="color: green"><%= notice %></p>
 
+<% content_for :title, "Posts" %>
 
-<% @posts.each do |post| %>
-  <% post.title %>
+<h1>Posts</h1>
+
+<div id="posts">
+  <% @posts.each do |post| %>
+    <%= turbo_frame_tag post do %>
+      <%= render partial: "content", locals: { post: post } %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= turbo_frame_tag "new_post" do %>
+  <%= link_to "新規投稿", new_post_path %>
 <% end %>
 
 <%= link_to "ホームに戻る", root_path %>
